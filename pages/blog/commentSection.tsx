@@ -14,10 +14,10 @@ const CommentSection: FC<CommentSectionProps> = ({ comments }) => {
       <Card className="w-full rounded-md shadow-none my-1 bg-[#0f0f0f]">
          <CardHeader className="gap-2 pb-0">
             <Avatar size="sm" />
-            {comments.name}
+            {comments?.name}
          </CardHeader>
          <CardBody className={clsx("text-sm text-gray-400", baseFont.className)}>
-            {comments.body}
+            {comments?.body}
          </CardBody>
       </Card>
    );
