@@ -23,7 +23,7 @@ export default function BlogIndex({
                <div className="bg-gradient-to-r h-40 rounded-md from-indigo-600 via-pink-600 to-purple-600 flex items-end">
                   <div className="w-full p-4 gap-2 flex items-center">
                      <Avatar />
-                     {data.author.name ? data.author?.name : "Unknown User"}
+                     {data.author ? data.author?.name : "Unknown User"}
                   </div>
                </div>
                <div className="text-lg my-4">{data.title}</div>
@@ -51,7 +51,7 @@ export const getServerSideProps = (async ({ query: { id = null } }) => {
       props: {
          BlogIndex: {
             id,
-            data: { ...data, author: userData },
+            data: { ...data, author: !Object.keys(userData).includes("name") ? null : userData },
             userComments,
          },
       },

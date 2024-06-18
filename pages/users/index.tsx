@@ -104,7 +104,7 @@ export default function UsersPage({
                <div className=" w-full mt-10 gap-2 flex flex-wrap">
                   {allUser.map((user: Users, key: number) => {
                      return (
-                        <Card className="w-[32%] rounded-md relative" key={user.id}>
+                        <Card className="w-full md:w-[32%] rounded-md relative" key={user.id}>
                            <div className="p-2">
                               <AddModal
                                  onSubmit={() => handleSubmit("delete", user.id)}
