@@ -1,5 +1,5 @@
 import { baseFont } from "@/config/fonts";
-import { Author, Blog } from "@/types/blog";
+import { Blog } from "@/types/blog";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
@@ -19,7 +19,7 @@ export default function BlogCard({ content }: BlogCardProps) {
          </CardBody>
          <CardFooter className="gap-2 text-sm text-gray-500">
             <Avatar size="sm" />
-            {content.author?.name ? content.author.name : "Unknown"}
+            {content.author ? content.author.name : "Unknown"}
          </CardFooter>
       </Card>
    );

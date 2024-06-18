@@ -40,7 +40,7 @@ export interface Blog {
    user_id: string;
    title: string;
    body: string;
-   author?: Author;
+   author: Author | null;
 }
 
 export interface UserComment {
