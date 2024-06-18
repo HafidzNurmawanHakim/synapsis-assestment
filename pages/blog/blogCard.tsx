@@ -19,7 +19,7 @@ export default function BlogCard({ content }: BlogCardProps) {
          </CardBody>
          <CardFooter className="gap-2 text-sm text-gray-500">
             <Avatar size="sm" />
-            {content.author ? content.author.name : "Unknown"}
+            {content.author?.name || "Unknown"}
          </CardFooter>
       </Card>
    );
