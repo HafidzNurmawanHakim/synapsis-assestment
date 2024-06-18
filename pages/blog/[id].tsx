@@ -1,3 +1,4 @@
+import CommentSection from "@/components/commentSection";
 import { title } from "@/components/primitives";
 import { baseFont } from "@/config/fonts";
 import DefaultLayout from "@/layouts/default";
@@ -5,7 +6,6 @@ import { Blog, UserComment } from "@/types/blog";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
 import { GetServerSideProps, InferGetStaticPropsType } from "next";
-import CommentSection from "./commentSection";
 
 interface BlogIndexProps {
    id?: string | string[] | null;

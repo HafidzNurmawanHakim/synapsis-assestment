@@ -1,63 +1,38 @@
 import DefaultLayout from "@/layouts/default";
-import { Blog } from "../types/blog";
-import BlogCard from "./blog/blogCard";
-import type { InferGetStaticPropsType, GetServerSideProps } from "next";
-import { Pagination } from "@nextui-org/react";
-import { useRouter } from "next/router";
+import Image from "next/image";
+import { title } from "@/components/primitives";
+import clsx from "clsx";
+import { baseFont } from "@/config/fonts";
 
-type BlogProps = {
-   content: Blog[];
-   currentPage?: number;
-};
-
-export default function IndexPage({
-   BlogUtils: { content, currentPage },
-}: InferGetStaticPropsType<typeof getServerSideProps>) {
-   const router = useRouter();
+export default function IndexPage({}) {
    return (
       <DefaultLayout>
          <section className="flex items-center justify-center gap-4 py-8 md:py-10">
             <div className="container max-w-3xl">
-               {content.map((_: Blog, key: number) => (
-                  <BlogCard content={_} key={_.id} />
-               ))}
-               <div className="w-full flex justify-end p-2">
-                  <Pagination
-                     total={content.length}
-                     onChange={(page) => router.push(`?page=${page}`)}
-                     initialPage={currentPage}
-                  />
+               <div className="w-full flex">
+                  <div className="w-full initial">
+                     <h1 className={title()}>Hi, </h1>
+                     <h1 className={title()}>Im Hafidz</h1>
+                     <div>
+                        <p className={clsx(baseFont.className, "mt-4")}>Welcome to my blog post!</p>
+                     </div>
+                  </div>
+                  <div className="w-[600px] relative">
+                     <div
+                        className="w-full absolute  top-0 left-0 bg-gradient-to-r from-indigo-600 bottom-0 z-0 via-pink-600 to-purple-600"
+                        style={{ borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%" }}
+                     ></div>
+                     <Image
+                        className="relative z-10"
+                        src={"/ava.png"}
+                        alt="ava"
+                        width={360}
+                        height={540}
+                     />
+                  </div>
                </div>
             </div>
          </section>
       </DefaultLayout>
    );
 }
-
-export const getServerSideProps = (async ({ query: { page = 1 } }) => {
-   const getBlog = await fetch(`${process.env.BASE_URL}/posts?page=${page}&per_page=20`);
-   const data = await getBlog.json();
-
-   const mergeData: Blog[] = await Promise.all(
-      data.map(async (item: Blog) => {
-         const user = await fetch(`${process.env.BASE_URL}/users/${item.user_id}`);
-         const author = await user.json();
-         if (!Object.keys(author).includes("name")) {
-            return { ...item, author: null };
-         }
-         return { ...item, author };
-      })
-   );
-
-   const currentPage = +page;
-   const { meta } = data;
-
-   return {
-      props: {
-         BlogUtils: {
-            content: mergeData,
-            currentPage,
-         },
-      },
-   };
-}) satisfies GetServerSideProps<{ BlogUtils: BlogProps }>;
